@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button , Icon , Row , Col} from 'antd';
+import { Icon , Row , Col} from 'antd';
 
 class AppHeader extends Component {
   render() {

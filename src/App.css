@@ -9,6 +9,7 @@
 }
 
 .App-title {
+  font-size: 1.8em;
   float:left;
 }
 
@@ -21,8 +22,8 @@
 
 .App-header {
   background-color: #222;
-  height: 50px;
-  padding: 10px;
+  height: 70px;
+  padding: 20px;
   color: white;
 }
 

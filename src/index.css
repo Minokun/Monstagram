@@ -6,7 +6,15 @@ body {
 
 .App-footer {
 	background-color: #222;
-	height: 30px;
-	padding: 10px;
+	height: 50px;
 	color: white;
+}
+
+.Photo-list {
+	background: silver;
+}
+
+.App-content {
+	background: lavender;
+	padding: 10px 27%;
 }
