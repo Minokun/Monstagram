@@ -20,7 +20,7 @@ class AppLayout extends Component {
 				    	<div className='Photo-list'>Content</div>
 				    </Content>
 				    {/* 页脚 */}
-				    <Footer style={{ textAlign: 'center' }}>
+				    <Footer className='App-footer'>
 				    	Web Design ©2017 Created by MonstarLab Minok
 				    </Footer>
 			    </Layout>
