@@ -24,7 +24,7 @@ class AppLayout extends Component {
 
 							{/* 作者信息 */}
 							<div className='author'>
-								<Icon type="smile" />
+								<Icon type="smile" style={{fontSize: 16}}/>
 								<span className='author-content'>Minokun</span>
 								<span className='author-time'>3 min</span>
 							</div>
@@ -41,7 +41,7 @@ class AppLayout extends Component {
 
 					    	{/* 评论信息 */}
 					    	<div className='comment'>
-					    		<h5 style={{paddingTop: 5 , paddingBottom: 5}}>世界的尽头</h5>
+					    		<h5 style={{paddingTop: 5 , paddingBottom: 5 ,fontSize: 16}}>世界的尽头</h5>
 					    		<Comment />
 					    	</div>
 

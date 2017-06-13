@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Icon , Row , Col , Dropdown , message , Menu } from 'antd';
+import AppLogin from './Login.js';
+import AppPublic from './Public.js';
+import AppLogout from './Logout.js';
+import AppCreate from './CreateUser.js';
+import { Icon , Row , Col , Dropdown , Menu } from 'antd';
 
-const onClick = function ({ key }) {
-  message.info(`Click on item ${key}`);
-};
-
-var cookie = true;
+var cookie = false;
 
 const menu = (
-    <Menu onClick={(onClick)}>
-        {cookie ? <Menu.Item key="2"><Icon type="camera" /> 作品发布</Menu.Item> : <Menu.Item key="3"><Icon type="camera" /> 账号登录</Menu.Item>}
+    <Menu>
+        {cookie ? <Menu.Item >你好！Minok！</Menu.Item> : null}
+        {cookie ? <Menu.Item key="1"><AppPublic /></Menu.Item> : <Menu.Item key="1"><AppLogin /></Menu.Item>}
+        {cookie ? <Menu.Item key="2"><AppLogout /></Menu.Item> : <Menu.Item key="2"><AppCreate /></Menu.Item>}
     </Menu>
 );
 
@@ -21,11 +23,12 @@ class AppHeader extends Component {
       <div className="App">
         <div className="App-header">
           <Row>
-          <Col span={8}></Col>
+          <Col span={6}></Col>
           <Col span={12}>
             <img src={logo} className="App-logo" alt="logo" />
             <h2 className="App-title">Monstagram</h2>
           </Col>
+            
           <Col span={4}>
             <span className="App-user">
               <Dropdown overlay={menu}>
