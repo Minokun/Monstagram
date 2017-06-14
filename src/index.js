@@ -46,6 +46,62 @@ class AppLayout extends Component {
 					    	</div>
 
 						</div>
+
+						<div className='content-list'>
+
+							{/* 作者信息 */}
+							<div className='author'>
+								<Icon type="smile" style={{fontSize: 16}}/>
+								<span className='author-content'>Minokun</span>
+								<span className='author-time'>3 min</span>
+							</div>
+
+							{/* 图片 */}
+					    	<div className='photo'>
+					    		<img className='pic' src="http://p3.image.hiapk.com/uploads/allimg/140827/7730-140RG15220-50.jpg"  alt="百度推片" />
+					    	</div>
+
+					    	{/* 点赞信息 */}
+					    	<div className='info'>
+					    		<Praise />
+					    	</div>
+
+					    	{/* 评论信息 */}
+					    	<div className='comment'>
+					    		<h5 style={{paddingTop: 5 , paddingBottom: 5 ,fontSize: 16}}>世界的尽头</h5>
+					    		<Comment />
+					    	</div>
+
+						</div>
+
+						
+
+						<div className='content-list'>
+
+							{/* 作者信息 */}
+							<div className='author'>
+								<Icon type="smile" style={{fontSize: 16}}/>
+								<span className='author-content'>Minokun</span>
+								<span className='author-time'>3 min</span>
+							</div>
+
+							{/* 图片 */}
+					    	<div className='photo'>
+					    		<img className='pic' src="http://www.cnr.cn/tech/techgd/201411/W020141125480341443287.jpg"  alt="百度推片" />
+					    	</div>
+
+					    	{/* 点赞信息 */}
+					    	<div className='info'>
+					    		<Praise />
+					    	</div>
+
+					    	{/* 评论信息 */}
+					    	<div className='comment'>
+					    		<h5 style={{paddingTop: 5 , paddingBottom: 5 ,fontSize: 16}}>世界的尽头</h5>
+					    		<Comment />
+					    	</div>
+
+						</div>
 						
 				    </Content>
 			    </Layout>

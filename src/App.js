@@ -7,7 +7,7 @@ import AppLogout from './Logout.js';
 import AppCreate from './CreateUser.js';
 import { Icon , Row , Col , Dropdown , Menu } from 'antd';
 
-var cookie = false;
+var cookie = true;
 
 const menu = (
     <Menu>
