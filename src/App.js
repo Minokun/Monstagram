@@ -7,7 +7,7 @@ import AppLogout from './Logout.js';
 import AppCreate from './CreateUser.js';
 import { Icon , Row , Col , Dropdown , Menu } from 'antd';
 
-var cookie = true;
+var cookie = 0;
 
 const menu = (
     <Menu>
@@ -32,7 +32,7 @@ class AppHeader extends Component {
           <Col span={4}>
             <span className="App-user">
               <Dropdown overlay={menu}>
-                <a className="ant-dropdown-link" href="#">
+                <a className="ant-dropdown-link">
                   <Icon type="user" style={{ fontSize: 24 }}/>
                 </a>
               </Dropdown>

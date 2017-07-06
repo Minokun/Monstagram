@@ -9,10 +9,82 @@ import Comment from './Comment.js';
 
 const { Content } = Layout;
 
+let Global = require("./Global.js");
 
-
-class AppLayout extends Component {
+// 作品展示组件
+class ShowList extends Component {
 	render() {
+		return (
+			<div>
+				<div className='content-list'>
+					{/* 作者信息 */}
+					<div className='author'>
+						<Icon type="smile" style={{fontSize: 16}}/>
+						<span className='author-content'>{this.props.children.nickname}</span>
+						<span className='author-time'>{this.props.children.time_diff}</span>
+					</div>
+
+					{/* 图片 */}
+			    	<div className='photo'>
+			    		<img className='pic' src={this.props.children.img_url}  alt="百度推片" />
+			    	</div>
+
+			    	{/* 点赞信息 */}
+			    	<div className='info'>
+			    		<Praise />
+			    	</div>
+
+			    	{/* 评论信息 */}
+			    	<div className='comment'>
+			    		<Comment ComList={this.props.children.comment} ResourceId={this.props.children.id} UserId={this.props.children.user_id} />
+			    	</div>
+		    	</div>
+	    	</div>
+		);
+	}
+}
+
+// 页面布局
+class AppLayout extends Component {
+
+	constructor(props){
+		super(props);
+		this.state = {
+			show_list : '',
+		};
+
+	}
+	// 获取作品数据
+	componentDidMount() {
+		fetch(Global.ApiUrl + "resource_list/").then((responce) => {
+			return responce.json();
+		}).then((data) => {
+			this.setState({
+				show_list:data,
+			});
+		}).catch((error) => {
+			console.log('request faild:', error);
+		})
+	}
+
+	// 组件更新
+	componentDidUpdate() {
+		fetch(Global.ApiUrl + "resource_list/").then((responce) => {
+			return responce.json();
+		}).then((data) => {
+			this.setState({
+				show_list:data,
+			});
+		}).catch((error) => {
+			console.log('request faild:', error);
+		})
+	}
+
+	render() {
+		var rows = [];
+		for (var n in this.state.show_list) {
+		    rows.push(<ShowList key={n} children={this.state.show_list[n]} />);
+		}
 		return (
 			<div>
 			    <Layout>
@@ -20,89 +92,7 @@ class AppLayout extends Component {
 					<AppHeader />
 					{/* 列表展示页面 */}
 					<Content className='App-content' >
-						<div className='content-list'>
-
-							{/* 作者信息 */}
-							<div className='author'>
-								<Icon type="smile" style={{fontSize: 16}}/>
-								<span className='author-content'>Minokun</span>
-								<span className='author-time'>3 min</span>
-							</div>
-
-							{/* 图片 */}
-					    	<div className='photo'>
-					    		<img className='pic' src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497248911983&di=622726b7512324805e9c30bf51fe9444&imgtype=0&src=http%3A%2F%2Fandroid-wallpapers.25pp.com%2Ffs01%2F2014%2F09%2F30%2F0_3675c5ca51a2f5fec8f756217ea66dd6_900x675.jpg"  alt="百度推片" />
-					    	</div>
-
-					    	{/* 点赞信息 */}
-					    	<div className='info'>
-					    		<Praise />
-					    	</div>
-
-					    	{/* 评论信息 */}
-					    	<div className='comment'>
-					    		<h5 style={{paddingTop: 5 , paddingBottom: 5 ,fontSize: 16}}>世界的尽头</h5>
-					    		<Comment />
-					    	</div>
-
-						</div>
-
-						<div className='content-list'>
-
-							{/* 作者信息 */}
-							<div className='author'>
-								<Icon type="smile" style={{fontSize: 16}}/>
-								<span className='author-content'>Minokun</span>
-								<span className='author-time'>3 min</span>
-							</div>
-
-							{/* 图片 */}
-					    	<div className='photo'>
-					    		<img className='pic' src="http://p3.image.hiapk.com/uploads/allimg/140827/7730-140RG15220-50.jpg"  alt="百度推片" />
-					    	</div>
-
-					    	{/* 点赞信息 */}
-					    	<div className='info'>
-					    		<Praise />
-					    	</div>
-
-					    	{/* 评论信息 */}
-					    	<div className='comment'>
-					    		<h5 style={{paddingTop: 5 , paddingBottom: 5 ,fontSize: 16}}>世界的尽头</h5>
-					    		<Comment />
-					    	</div>
-
-						</div>
-
-						
-
-						<div className='content-list'>
-
-							{/* 作者信息 */}
-							<div className='author'>
-								<Icon type="smile" style={{fontSize: 16}}/>
-								<span className='author-content'>Minokun</span>
-								<span className='author-time'>3 min</span>
-							</div>
-
-							{/* 图片 */}
-					    	<div className='photo'>
-					    		<img className='pic' src="http://www.cnr.cn/tech/techgd/201411/W020141125480341443287.jpg"  alt="百度推片" />
-					    	</div>
-
-					    	{/* 点赞信息 */}
-					    	<div className='info'>
-					    		<Praise />
-					    	</div>
-
-					    	{/* 评论信息 */}
-					    	<div className='comment'>
-					    		<h5 style={{paddingTop: 5 , paddingBottom: 5 ,fontSize: 16}}>世界的尽头</h5>
-					    		<Comment />
-					    	</div>
-
-						</div>
-						
+						{rows}
 				    </Content>
 			    </Layout>
 			</div>
