@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Tooltip, Icon, Select, Checkbox, Modal} from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Checkbox, Modal } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
+
 
 class RegistrationForm extends React.Component {
   state = {
@@ -13,7 +14,7 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        
       }
     });
   }
@@ -152,7 +153,7 @@ class RegistrationForm extends React.Component {
         
         <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
           {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
+            valuePropName: 'checked',rules:[{required: true,message: '注册需要同意我们的霸王条款！'}]
           })(
             <Checkbox>注册即表示你同意我们的 <a href="">条款</a></Checkbox>
           )}

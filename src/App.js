@@ -7,11 +7,11 @@ import AppLogout from './Logout.js';
 import AppCreate from './CreateUser.js';
 import { Icon , Row , Col , Dropdown , Menu } from 'antd';
 
-var cookie = 0;
-
+var cookie = localStorage.getItem("user_id") || sessionStorage.getItem("user_id");
+var username = localStorage.getItem('nickname') ? localStorage.getItem('nickname') : sessionStorage.getItem("nickname");
 const menu = (
     <Menu>
-        {cookie ? <Menu.Item >你好！Minok！</Menu.Item> : null}
+        {cookie ? <Menu.Item >你好！{username}</Menu.Item> : null}
         {cookie ? <Menu.Item key="1"><AppPublic /></Menu.Item> : <Menu.Item key="1"><AppLogin /></Menu.Item>}
         {cookie ? <Menu.Item key="2"><AppLogout /></Menu.Item> : <Menu.Item key="2"><AppCreate /></Menu.Item>}
     </Menu>

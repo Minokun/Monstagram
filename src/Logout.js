@@ -9,10 +9,12 @@ function showConfirm() {
       title: '真的要退出登录吗?',
       content: '退出后无法发表作品和点赞评论哦……',
       onOk() {
-        console.log('OK');
+        sessionStorage.clear();
+        localStorage.clear();
+        window.location.reload();
       },
       onCancel() {
-        console.log('Cancel');
+        
       },
     });
 }

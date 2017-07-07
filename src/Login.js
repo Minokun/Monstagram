@@ -62,7 +62,8 @@ class AppLogin extends React.Component {
         return;
       }
 
-      console.log('Received values of form: ', values);
+      sessionStorage.setItem("user_id",2);
+      window.location.reload();
       form.resetFields();
       this.setState({ visible: false });
     });

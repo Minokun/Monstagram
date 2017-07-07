@@ -54,8 +54,9 @@ class AppLayout extends Component {
 		};
 
 	}
-	// 获取作品数据
-	componentDidMount() {
+
+	// 获取数据
+	getData() {
 		fetch(Global.ApiUrl + "resource_list/").then((responce) => {
 			return responce.json();
 		}).then((data) => {
@@ -67,18 +68,12 @@ class AppLayout extends Component {
 		})
 	}
 
-	// 组件更新
-	componentDidUpdate() {
-		fetch(Global.ApiUrl + "resource_list/").then((responce) => {
-			return responce.json();
-		}).then((data) => {
-			this.setState({
-				show_list:data,
-			});
-		}).catch((error) => {
-			console.log('request faild:', error);
-		})
+	// 获取作品数据
+	componentDidMount() {
+		this.getData();
 	}
+
+	
 
 	render() {
 		var rows = [];
