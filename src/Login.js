@@ -1,7 +1,9 @@
 import React from 'react';
-import { Icon , Modal , Button , Form , Input ,Checkbox } from 'antd';
+import { Icon , Modal , Button , Form , Input ,Checkbox ,message} from 'antd';
 
 const FormItem = Form.Item;
+
+let Global = require("./Global.js");
 
 const CollectionCreateForm = Form.create()(
   (props) => {
@@ -61,11 +63,40 @@ class AppLogin extends React.Component {
       if (err) {
         return;
       }
+      
+      fetch(Global.ApiUrl + "login/",{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+          email:values.userName,
+          password:values.password
+        })
+      }).then((responce) => {
+        return responce.json();
+      }).then((data) => {
 
-      sessionStorage.setItem("user_id",2);
-      window.location.reload();
-      form.resetFields();
-      this.setState({ visible: false });
+        if (data.status) {
+        	if (values.remember) {
+          		localStorage.setItem("user_id",data.data.user_id);
+          		localStorage.setItem("nickname",data.data.nickname);
+        	}else{
+        		sessionStorage.setItem();
+        		sessionStorage.setItem();
+        	}
+
+          message.success("登录成功！");
+          
+          window.location.reload();
+          form.resetFields();
+          this.setState({ visible: false });
+        }else{
+          message.error(data.message);
+        }
+        
+      });
+
     });
   }
   saveFormRef = (form) => {

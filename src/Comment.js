@@ -35,8 +35,9 @@ class Comment extends Component {
   }
 
   handleClick(event) {
+
     var rid = this.props.ResourceId;
-    var uid = this.props.UserId;
+    var uid = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : sessionStorage.getItem("user_id");
     var ct = this.state.value;
     if (ct) {
       fetch(Global.ApiUrl + "comment_list/",{
@@ -52,6 +53,7 @@ class Comment extends Component {
       }).then((responce) => {
         message.success('评论成功！');
         this.setState({value: ''});
+        window.location.reload();
       });
     }
   }

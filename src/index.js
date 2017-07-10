@@ -36,7 +36,7 @@ class ShowList extends Component {
 
 			    	{/* 评论信息 */}
 			    	<div className='comment'>
-			    		<Comment ComList={this.props.children.comment} ResourceId={this.props.children.id} UserId={this.props.children.user_id} />
+			    		<Comment ComList={this.props.children.comment} ResourceId={this.props.children.id} />
 			    	</div>
 		    	</div>
 	    	</div>
