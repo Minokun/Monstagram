@@ -4,11 +4,7 @@ import { Icon , Modal , Button , Form , Input , Upload, message } from 'antd';
 
 const FormItem = Form.Item;
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+let Global = require("./Global.js");
 
 function beforeUpload(file) {
   const isJPG = file.type === 'image/jpeg';
@@ -23,16 +19,14 @@ function beforeUpload(file) {
 }
 
 class Avatar extends React.Component {
+
   state = {};
 
-  handleChange = (info) => {
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
-    }
-  }
-
   onSuccess = (ret) => {
+    this.setState({
+      "imageUrl" : ret.pic_url,
+    });
+    this.props.setImageUrl(ret.pic_url);
     console.log('onSuccess',ret);
   }
 
@@ -51,9 +45,8 @@ class Avatar extends React.Component {
         className="avatar-uploader"
         name="avatar"
         showUploadList={false}
-        action="//jsonplaceholder.typicode.com/posts/"
+        action={Global.UploadUrl}
         beforeUpload={beforeUpload}
-        onChange={this.handleChange}
         onSuccess={this.onSuccess}
         onError={this.onError}
         onStart={this.onStart}
@@ -70,12 +63,8 @@ class Avatar extends React.Component {
 
 const PublicPic = Form.create()(
   (props) => {
-    const { visible, onCancel, onCreate, form } = props;
+    const { visible, onCancel, onCreate, form , setImageUrl} = props;
     const { getFieldDecorator } = form;
-    const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
-    };
     return (
       <Modal
         visible={visible}
@@ -91,10 +80,10 @@ const PublicPic = Form.create()(
           })(
             <Input prefix={<Icon type="tags" style={{ fontSize: 13 }} />} placeholder="主题……" />
           )}
-        </FormItem>
+          </FormItem>
         </Form>
 
-        <Avatar />
+         <Avatar setImageUrl={setImageUrl} />
 
       </Modal>
     );
@@ -104,13 +93,23 @@ const PublicPic = Form.create()(
 class AppPublic extends Component {
   state = {
     visible: false,
+    ImageUrl: '',
   };
+
   showModal = () => {
     this.setState({ visible: true });
   }
+
   handleCancel = () => {
     this.setState({ visible: false });
   }
+
+  setImageUrl = (url) => {
+    this.setState({
+      ImageUrl: url
+    })
+  }
+
   handleCreate = () => {
     const form = this.form;
     form.validateFields((err, values) => {
@@ -118,11 +117,36 @@ class AppPublic extends Component {
         return;
       }
 
-      console.log('Received values of form: ', values);
-      form.resetFields();
-      this.setState({ visible: false });
+      var user_id = localStorage.getItem("user_id") ? localStorage.getItem('user_id') : sessionStorage.getItem("user_id");
+      fetch(Global.ApiUrl + "resource_list/",{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+          user_id : user_id,
+          title : values.title,
+          img_url : this.state.ImageUrl,
+        })
+      }).then((responce) => {
+
+        if (responce.status) {
+
+          message.success('评论成功！');
+          window.location.reload();
+          form.resetFields();
+          this.setState({ visible: false });
+
+        }else{
+
+          message.error('发表失败，请稍后再尝试一下！');
+          
+        }
+      });
+
     });
   }
+
   saveFormRef = (form) => {
     this.form = form;
   }
@@ -134,6 +158,7 @@ class AppPublic extends Component {
     }
     return e && e.fileList;
   }
+
   render() {
     return (
       <div>
@@ -143,6 +168,7 @@ class AppPublic extends Component {
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
+          setImageUrl={this.setImageUrl}
         />
       </div>
     );

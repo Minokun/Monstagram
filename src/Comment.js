@@ -39,22 +39,26 @@ class Comment extends Component {
     var rid = this.props.ResourceId;
     var uid = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : sessionStorage.getItem("user_id");
     var ct = this.state.value;
-    if (ct) {
-      fetch(Global.ApiUrl + "comment_list/",{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify({
-          user_id : uid,
-          resources_id : rid,
-          content : ct,
-        })
-      }).then((responce) => {
-        message.success('评论成功！');
-        this.setState({value: ''});
-        window.location.reload();
-      });
+    if (uid) {
+      if (ct) {
+        fetch(Global.ApiUrl + "comment_list/",{
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify({
+            user_id : uid,
+            resources_id : rid,
+            content : ct,
+          })
+        }).then((responce) => {
+          message.success('评论成功！');
+          this.setState({value: ''});
+          window.location.reload();
+        });
+      }
+    }else{
+      message.error('请先登录再进行评价！');
     }
   }
 
@@ -78,7 +82,7 @@ class Comment extends Component {
         <hr style={hr}/>
         <div className="comment-public" style={commentPublic}>
           <Row>
-          <Col span={20}><Input prefix={<Icon type="message" />} placeholder="评论……" value={this.state.value} onChange={this.handleChange} /></Col>
+          <Col span={18}><Input prefix={<Icon type="message" />} placeholder="评论……" value={this.state.value} onChange={this.handleChange} /></Col>
           <Col span={4}><Button type="primary" onClick={this.handleClick}>提交</Button></Col>
           </Row>
         </div>

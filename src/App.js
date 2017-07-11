@@ -23,8 +23,8 @@ class AppHeader extends Component {
       <div className="App">
         <div className="App-header">
           <Row>
-          <Col span={6}></Col>
-          <Col span={12}>
+          <Col span={4}></Col>
+          <Col span={14}>
             <img src={logo} className="App-logo" alt="logo" />
             <h2 className="App-title">Monstagram</h2>
           </Col>
