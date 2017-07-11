@@ -132,7 +132,7 @@ class AppPublic extends Component {
 
         if (responce.status) {
 
-          message.success('评论成功！');
+          message.success('发布成功！');
           window.location.reload();
           form.resetFields();
           this.setState({ visible: false });
@@ -140,7 +140,7 @@ class AppPublic extends Component {
         }else{
 
           message.error('发表失败，请稍后再尝试一下！');
-          
+
         }
       });
 
