@@ -31,7 +31,7 @@ class ShowList extends Component {
 
 			    	{/* 点赞信息 */}
 			    	<div className='info'>
-			    		<Praise />
+			    		<Praise num={this.props.children.praise_num} resource_id={this.props.children.id}/>
 			    	</div>
 
 			    	{/* 评论信息 */}

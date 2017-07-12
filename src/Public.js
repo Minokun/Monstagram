@@ -7,7 +7,7 @@ const FormItem = Form.Item;
 let Global = require("./Global.js");
 
 function beforeUpload(file) {
-  const isJPG = file.type === 'image/jpeg';
+  const isJPG = (file.type === 'image/jpeg') || (file.type === 'image/png');
   if (!isJPG) {
     message.error('只能上传 JPG 格式图片!');
   }
