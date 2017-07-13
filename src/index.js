@@ -31,7 +31,7 @@ class ShowList extends Component {
 
 			    	{/* 点赞信息 */}
 			    	<div className='info'>
-			    		<Praise num={this.props.children.praise_num} resource_id={this.props.children.id}/>
+			    		<Praise num={this.props.children.praise_num} resource_id={this.props.children.id} praise_check={this.props.children.praise_check}/>
 			    	</div>
 
 			    	{/* 评论信息 */}
@@ -57,7 +57,10 @@ class AppLayout extends Component {
 
 	// 获取数据
 	getData() {
-		fetch(Global.ApiUrl + "resource_list/").then((responce) => {
+		var uid = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : sessionStorage.getItem("user_id");
+		uid = uid ? uid : 0;
+
+		fetch(Global.ApiUrl + "resource_list/?user_id=" + uid).then((responce) => {
 			return responce.json();
 		}).then((data) => {
 			this.setState({

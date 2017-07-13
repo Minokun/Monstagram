@@ -41,7 +41,7 @@ class Praise extends Component {
           resources_id : this.props.resource_id
         })
       }).then((responce) => {
-        message.success('评论成功！');
+        message.success('点赞成功！');
         window.location.reload();
       });
     }else{
@@ -49,15 +49,38 @@ class Praise extends Component {
     }
   }
 
-  // 获取当前用户点赞信息数据
-  componentDidMount() {
-    this.getData();
+  handlePraiseCancel = () => {
+    var uid = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : sessionStorage.getItem('user_id');
+
+    if (uid) {
+      fetch(Global.ApiUrl + "praise_cancel/",{
+        method:'DELETE',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+          user_id : uid,
+          resources_id : this.props.resource_id
+        })
+      }).then((responce) => {
+        message.success('取消点赞！');
+        window.location.reload();
+      });
+    }else{
+      message.error("请先登录！");
+    }
   }
 
   render() {
+    let praise_icon;
+    if (!this.props.praise_check) {
+      praise_icon = (<a onClick={this.handleClick}><span><Icon type="heart-o" /></span></a>)
+    }else{
+      praise_icon = (<a onClick={this.handlePraiseCancel}><span><Icon type="heart" style={{ color: 'red' }}/></span></a>)
+    }
     return (
       <div className="praise-info">
-        <a onClick={this.handleClick}><span><Icon type="heart-o" /></span></a>
+        {praise_icon}
         <span className='praise-content' style={praiseConent}>{this.props.num} 喜欢</span>
       </div>
     );
